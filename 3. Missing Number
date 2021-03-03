@@ -1,0 +1,40 @@
+class Solution {
+    public int missingNumber(int[] nums) {
+        int xorarr=0;
+        for(int i:nums){
+            xorarr^=i;
+        }
+        
+        int xorAll = 0;
+        for(int i=0;i<=nums.length;i++){
+            xorAll^=i;
+        }
+        
+        return xorarr ^ xorAll;
+    }
+}
+
+class Solution {
+    public int missingNumber(int[] nums) {
+        int xorAll = nums.length;
+        for(int i=0;i<nums.length;i++){
+            xorAll^=i^nums[i];
+        }
+        
+        return xorAll;
+    }
+}
+
+class Solution {
+    public int missingNumber(int[] nums) {
+        int sumArr=0;
+        for(int i:nums){
+            sumArr+=i;
+        }
+        
+        int n=nums.length;
+        int sumAll= n*(n+1)/2;
+        
+        return sumAll - sumArr;
+    }
+}
