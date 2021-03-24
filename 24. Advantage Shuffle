@@ -1,0 +1,42 @@
+class Solution {
+    public int[] advantageCount(int[] A, int[] B) {
+        int n = A.length;
+        //To stores original indexes of B
+        Map<Integer, Queue<Integer>> indexes = new HashMap<>();
+        for(int i = 0; i < n; i++){
+            indexes.putIfAbsent(B[i], new LinkedList<>());
+            indexes.get(B[i]).add(i);
+        }
+        
+        //Sort the array
+        Arrays.sort(A);
+        Arrays.sort(B);
+        
+        int i = 0, j = 0;
+        int[] result = new int[n];
+        Arrays.fill(result, -1);
+        
+        //Ordering A[i] where possible or adding unused numbers in Queue
+        Queue<Integer> unusedNums = new LinkedList<>();
+        while(i < n && j < n){
+            if(A[i] > B[j]) {
+                int ind = indexes.get(B[j]).poll();
+                result[ind]=A[i];
+                j++;
+            }
+            else {
+                unusedNums.add(A[i]);
+            }
+            i++;
+        }
+        
+        //Fill the -1's with unusedNums
+        for(int in = 0; in < n; in++) {
+            if(result[in] == -1){
+                result[in] = unusedNums.poll();
+            }
+        }
+        
+        return result;
+    }
+}
