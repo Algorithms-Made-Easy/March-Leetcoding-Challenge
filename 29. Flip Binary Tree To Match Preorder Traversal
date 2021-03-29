@@ -1,0 +1,24 @@
+class Solution {
+    int i;
+    List<Integer> res;
+    int[] v;
+    public List<Integer> flipMatchVoyage(TreeNode root, int[] voyage) {
+        i = 0;
+        res = new ArrayList<>();
+        v=voyage;
+        return dfs(root) ? res : Arrays.asList(-1);
+    }
+    
+    public boolean dfs(TreeNode node) {
+        if(node==null) return true;
+        if(node.val != v[i++]) return false;
+        if(node.left != null && node.left.val != v[i]) {
+            res.add(node.val);
+            return dfs(node.right) && dfs(node.left);
+        }
+        else {
+            return dfs(node.left) && dfs(node.right);
+        }
+    }
+}
+
